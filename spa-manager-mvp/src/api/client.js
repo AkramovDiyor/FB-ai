@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-// Создаем базовый axios инстанс
+// Создаем базовый инстанс axios
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -10,7 +10,7 @@ const apiClient = axios.create({
   },
 });
 
-// Интерцептор запроса - добавляем текущий объект если есть в localStorage
+// Интерцептор запроса - добавляем текущий объект если он есть
 apiClient.interceptors.request.use(
   (config) => {
     const currentObject = localStorage.getItem('selectedObject');
@@ -24,51 +24,22 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Интерцептор ответа - централизованная обработка ошибок
+// Интерцептор ответа - обработка ошибок
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Обработка ошибок сети
-    if (!error.response) {
-      console.error('Network error:', error.message);
-      throw new Error('Нет соединения с сервером. Проверьте подключение к API.');
+    if (error.response) {
+      // Сервер вернул ошибку
+      console.error('API Error:', error.response.status, error.response.data);
+    } else if (error.request) {
+      // Запрос был отправлен, но нет ответа
+      console.error('Network Error:', error.message);
+    } else {
+      // Другая ошибка
+      console.error('Error:', error.message);
     }
-
-    // Обработка HTTP ошибок
-    const status = error.response.status;
-    
-    if (status === 401) {
-      console.error('Unauthorized access');
-      // Можно добавить редирект на логин или обновление токена
-    } else if (status === 403) {
-      console.error('Forbidden access');
-    } else if (status === 404) {
-      console.error('Resource not found');
-    } else if (status >= 500) {
-      console.error('Server error:', status);
-      throw new Error(`Ошибка сервера: ${status}. Попробуйте позже.`);
-    }
-
-    // Возвращаем структурированную ошибку
-    const errorMessage = error.response.data?.message || error.response.data?.error || 'Произошла неизвестная ошибка';
-    const structuredError = {
-      status,
-      message: errorMessage,
-      data: error.response.data,
-      originalError: error,
-    };
-    
-    return Promise.reject(structuredError);
+    return Promise.reject(error);
   }
 );
-
-// Экспортируем методы для удобного использования
-export const api = {
-  get: (url, config) => apiClient.get(url, config),
-  post: (url, data, config) => apiClient.post(url, data, config),
-  put: (url, data, config) => apiClient.put(url, data, config),
-  patch: (url, data, config) => apiClient.patch(url, data, config),
-  delete: (url, config) => apiClient.delete(url, config),
-};
 
 export default apiClient;

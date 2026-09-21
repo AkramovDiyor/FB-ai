@@ -1,10 +1,12 @@
 import { MantineProvider, createTheme } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ObjectProvider from '../hooks/useObject';
+import { BrowserRouter } from 'react-router-dom';
 
 const theme = createTheme({
-  primaryColor: 'teal',
+  primaryColor: 'blue',
   fontFamily: 'Inter, sans-serif',
   headings: {
     fontFamily: 'Inter, sans-serif',
@@ -14,24 +16,20 @@ const theme = createTheme({
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
       retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 минут
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
     },
   },
 });
 
-export function AppProviders({ children }) {
+export const AppProviders = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider theme={theme}>
-        <ObjectProvider>
-          <Notifications position="top-right" />
-          {children}
-        </ObjectProvider>
+        <Notifications position="top-right" />
+        <BrowserRouter>{children}</BrowserRouter>
       </MantineProvider>
     </QueryClientProvider>
   );
-}
-
-export default AppProviders;
+};

@@ -1,53 +1,34 @@
-// Endpoints API для SPA Manager
+// Meta endpoints
+export const META = '/api/meta';
 
-export const ENDPOINTS = {
-  // Дашборд
-  dashboard: {
-    kpi: '/api/dashboard/kpi',
-    alerts: '/api/dashboard/alerts',
-    upcomingOrders: '/api/dashboard/upcoming-orders',
-  },
-  
-  // Остатки и инвентарь
-  inventory: {
-    list: '/api/inventory',
-    item: (id) => `/api/inventory/${id}`,
-    batches: (id) => `/api/inventory/${id}/batches`,
-    movement: (id) => `/api/inventory/${id}/movement`,
-  },
-  
-  // Предупреждения
-  alerts: {
-    list: '/api/alerts',
-    acknowledge: (id) => `/api/alerts/${id}/acknowledge`,
-  },
-  
-  // Расчет закупки
-  forecast: {
-    calculate: '/api/forecast',
-  },
-  
-  // Что заказать
-  reorder: {
-    list: '/api/reorder-list',
-  },
-  
-  // План и бюджет
-  planning: {
-    purchasePlan: '/api/purchase-plan',
-    budget: '/api/budget',
-  },
-  
-  // Цены и экономика
-  economics: {
-    priceDynamics: '/api/price-dynamics',
-    serviceCostSimulate: '/api/service-cost/simulate',
-  },
-  
-  // Чат с ИИ
-  chat: {
-    send: '/api/chat',
-  },
-};
+// Dashboard
+export const DASHBOARD = '/api/dashboard';
 
-export default ENDPOINTS;
+// Stock & Products
+export const STOCK = '/api/stock';
+export const PRODUCT = (sku) => `/api/products/${sku}`;
+export const BATCHES = '/api/batches';
+export const MOVEMENTS = '/api/movements';
+
+// Alerts
+export const ALERTS = '/api/alerts';
+
+// Forecast
+export const FORECAST = '/api/forecast';
+
+// Reorder list
+export const REORDER_LIST = '/api/reorder-list';
+
+// Planning & Budget
+export const PURCHASE_PLAN = '/api/purchase-plan';
+export const BUDGET = '/api/budget';
+
+// Pricing & Economics
+export const PRICE_DYNAMICS = '/api/price-dynamics';
+export const SERVICE_COST = (serviceId) => `/api/service-cost/${serviceId}`;
+export const SERVICE_COST_SIMULATE = '/api/service-cost/simulate';
+
+// Chat
+export const CHAT = '/api/chat';
+export const CHAT_EXAMPLES = '/api/chat/examples';
+export const CHAT_HISTORY = '/api/chat';

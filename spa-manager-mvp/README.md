@@ -1,62 +1,16 @@
-# SPA Manager MVP
+# React + Vite
 
-Приложение для управления спа-объектом с интеграцией Mock API.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Быстрый старт
+Currently, two official plugins are available:
 
-### Вариант 1: Локальная разработка
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-```bash
-npm install
-npm run dev
-```
+## React Compiler
 
-### Вариант 2: Docker
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```bash
-docker compose up --build
-```
+## Expanding the Oxlint configuration
 
-Приложение будет доступно по адресу: http://localhost:3000
-
-## Технологический стек
-
-- **React** + **Vite** - фреймворк и сборщик
-- **Tailwind CSS** - утилитарные стили
-- **Mantine UI** - компоненты интерфейса
-- **TanStack React Query** - управление серверным состоянием
-- **Recharts** - графики и визуализация
-- **Axios** - HTTP клиент
-
-## Структура проекта
-
-```
-src/
-├── api/              # Слой работы с API
-│   ├── client.js     # Базовый axios инстанс
-│   └── endpoints.js  # Описание эндпоинтов
-├── app/              # Глобальные настройки
-├── components/       # Переиспользуемые компоненты
-├── features/         # Бизнес-логика по экранам
-├── hooks/            # Кастомные хуки
-└── main.jsx          # Точка входа
-```
-
-## Основные экраны
-
-- Дашборд (KPI, предупреждения, заказы)
-- Остатки и карточка позиции
-- Предупреждения (7 типов)
-- Расчёт закупки
-- Что заказать
-- План и бюджет
-- Цены и экономика
-- Чат с ИИ
-
-## Переменные окружения
-
-Создайте файл `.env` в корне проекта:
-
-```
-VITE_API_URL=http://localhost:8000
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
