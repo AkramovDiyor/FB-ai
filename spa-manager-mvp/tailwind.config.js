@@ -8,4 +8,7 @@ export default {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    preflight: false, // Отключаем сброс стилей для совместимости с Mantine
+  },
 }

@@ -1,62 +1,67 @@
 # SPA Manager MVP
 
-Приложение для управления спа-объектом с интеграцией Mock API.
+ИИ-помощник по складскому учёту и планированию закупок спа-оператора.
 
 ## Быстрый старт
 
-### Вариант 1: Локальная разработка
+### 1. Запуск Mock API (отдельный терминал)
 
 ```bash
+git clone https://gitverse.ru/kkk_s/moc_api_spa.git
+cd moc_api_spa
+docker compose up --build
+```
+
+Документация API: http://localhost:8000/docs
+
+### 2. Запуск фронтенда
+
+```bash
+cd spa-manager-mvp
 npm install
 npm run dev
 ```
 
-### Вариант 2: Docker
+### 3. Открыть в браузере
 
-```bash
-docker compose up --build
-```
+http://localhost:5173
 
-Приложение будет доступно по адресу: http://localhost:3000
+## Стек
 
-## Технологический стек
-
-- **React** + **Vite** - фреймворк и сборщик
-- **Tailwind CSS** - утилитарные стили
-- **Mantine UI** - компоненты интерфейса
-- **TanStack React Query** - управление серверным состоянием
-- **Recharts** - графики и визуализация
-- **Axios** - HTTP клиент
+- React + Vite
+- Mantine UI
+- Tailwind CSS
+- TanStack Query
+- Recharts
+- Axios
 
 ## Структура проекта
 
 ```
 src/
-├── api/              # Слой работы с API
-│   ├── client.js     # Базовый axios инстанс
-│   └── endpoints.js  # Описание эндпоинтов
-├── app/              # Глобальные настройки
-├── components/       # Переиспользуемые компоненты
-├── features/         # Бизнес-логика по экранам
-├── hooks/            # Кастомные хуки
-└── main.jsx          # Точка входа
+├── api/           # API клиент, эндпоинты, сервисы
+├── components/    # UI компоненты
+├── contexts/      # React Context
+├── features/      # Бизнес-логика по экранам
+├── hooks/         # Кастомные хуки
+├── pages/         # Страницы приложения
+└── App.jsx        # Точка входа с роутингом
 ```
 
-## Основные экраны
+## Docker
 
-- Дашборд (KPI, предупреждения, заказы)
-- Остатки и карточка позиции
-- Предупреждения (7 типов)
-- Расчёт закупки
-- Что заказать
-- План и бюджет
-- Цены и экономика
-- Чат с ИИ
-
-## Переменные окружения
-
-Создайте файл `.env` в корне проекта:
-
+```bash
+docker compose up --build
 ```
-VITE_API_URL=http://localhost:8000
-```
+
+## API Endpoints
+
+- GET /api/meta — метаданные объектов
+- GET /api/dashboard — KPI дашборда
+- GET /api/stock — остатки склада
+- POST /api/forecast — расчёт закупки
+- GET /api/reorder-list — список заказов
+- POST /api/purchase-plan — план закупок
+- POST /api/budget — бюджет
+- GET /api/alerts — предупреждения
+- POST /api/chat — чат с ИИ

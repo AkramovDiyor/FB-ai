@@ -1,10 +1,13 @@
 version: '3.8'
 
 services:
-  spa-manager:
+  app:
     build: .
     ports:
-      - "3000:3000"
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
     environment:
       - VITE_API_URL=http://localhost:8000
-    restart: unless-stopped
+    command: npm run dev -- --host 0.0.0.0
