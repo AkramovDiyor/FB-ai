@@ -1,53 +1,35 @@
-// Endpoints API для SPA Manager
-
-export const ENDPOINTS = {
-  // Дашборд
-  dashboard: {
-    kpi: '/api/dashboard/kpi',
-    alerts: '/api/dashboard/alerts',
-    upcomingOrders: '/api/dashboard/upcoming-orders',
-  },
+// Эндпоинты API
+export const endpoints = {
+  // Мета данные
+  meta: '/api/meta',
+  health: '/health',
   
-  // Остатки и инвентарь
-  inventory: {
-    list: '/api/inventory',
-    item: (id) => `/api/inventory/${id}`,
-    batches: (id) => `/api/inventory/${id}/batches`,
-    movement: (id) => `/api/inventory/${id}/movement`,
-  },
+  // Дашборд
+  dashboard: '/api/dashboard',
+  
+  // Склад и товары
+  stock: '/api/stock',
+  products: (sku) => `/api/products/${sku}`,
+  batches: '/api/batches',
+  movements: '/api/movements',
   
   // Предупреждения
-  alerts: {
-    list: '/api/alerts',
-    acknowledge: (id) => `/api/alerts/${id}/acknowledge`,
-  },
+  alerts: '/api/alerts',
   
-  // Расчет закупки
-  forecast: {
-    calculate: '/api/forecast',
-  },
-  
-  // Что заказать
-  reorder: {
-    list: '/api/reorder-list',
-  },
-  
-  // План и бюджет
-  planning: {
-    purchasePlan: '/api/purchase-plan',
-    budget: '/api/budget',
-  },
+  // Прогнозы и закупки
+  forecast: '/api/forecast',
+  reorderList: '/api/reorder-list',
+  purchasePlan: '/api/purchase-plan',
+  budget: '/api/budget',
   
   // Цены и экономика
-  economics: {
-    priceDynamics: '/api/price-dynamics',
-    serviceCostSimulate: '/api/service-cost/simulate',
-  },
+  priceDynamics: '/api/price-dynamics',
+  serviceCost: (serviceId) => `/api/service-cost/${serviceId}`,
+  serviceCostSimulate: '/api/service-cost/simulate',
   
-  // Чат с ИИ
-  chat: {
-    send: '/api/chat',
-  },
+  // Чат
+  chat: '/api/chat',
+  chatExamples: '/api/chat/examples',
 };
 
-export default ENDPOINTS;
+export default endpoints;
