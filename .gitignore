@@ -23,7 +23,21 @@ htmlcov/
 # Logs
 *.log
 
-# Python cache
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Python (if any Python files exist in project)
 __pycache__/
 *.pyc
 *.pyo
