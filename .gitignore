@@ -2,10 +2,26 @@
 # Dependencies
 node_modules/
 
-# Build artifacts
+# Build outputs
 dist/
 build/
-*.js.map
+coverage/
+htmlcov/
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
 
 # Environment
 .env
@@ -27,28 +43,17 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
+# Testing
+.pytest_cache/
+.mypy_cache/
 
-# Temporary files
-*.tmp
-*.temp
-
-# OS specific
+# System files
 .DS_Store
 Thumbs.db
 
-# Cache directories
-.cache/
-.mypy_cache/
-.pytest_cache/
-.nyc_output/
-coverage/
+# Coverage reports
+.coverage
 
-# Distribution / packaging
-*.tar.gz
-*.whl
-*.egg-info/
+# Docker
+.dockerenv
 ```

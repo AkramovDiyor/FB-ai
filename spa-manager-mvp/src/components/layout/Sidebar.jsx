@@ -1,49 +1,53 @@
-import { NavLink } from '@mantine/core';
+import { AppShell, NavLink, Group, Text, ScrollArea } from '@mantine/core';
 import { 
   IconDashboard, 
   IconPackage, 
   IconAlertTriangle, 
-  IconCalculator,
-  IconShoppingCart,
-  IconChartBar,
-  IconTag,
-  IconMessageChatbot
+  IconCalculator, 
+  IconShoppingCart, 
+  IconChartBar, 
+  IconCurrencyDollar, 
+  IconMessageChatbot 
 } from '@tabler/icons-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const menuItems = [
-  { label: 'Дашборд', icon: IconDashboard, path: '/' },
-  { label: 'Остатки', icon: IconPackage, path: '/inventory' },
-  { label: 'Предупреждения', icon: IconAlertTriangle, path: '/alerts' },
-  { label: 'Расчёт закупки', icon: IconCalculator, path: '/forecast' },
-  { label: 'Что заказать', icon: IconShoppingCart, path: '/reorder' },
-  { label: 'План и бюджет', icon: IconChartBar, path: '/planning' },
-  { label: 'Цены и экономика', icon: IconTag, path: '/pricing' },
-  { label: 'Чат с ИИ', icon: IconMessageChatbot, path: '/chat' },
+  { icon: IconDashboard, label: 'Дашборд', path: '/' },
+  { icon: IconPackage, label: 'Остатки', path: '/inventory' },
+  { icon: IconAlertTriangle, label: 'Предупреждения', path: '/alerts' },
+  { icon: IconCalculator, label: 'Расчёт закупки', path: '/forecast' },
+  { icon: IconShoppingCart, label: 'Что заказать', path: '/reorder' },
+  { icon: IconChartBar, label: 'План и бюджет', path: '/planning' },
+  { icon: IconCurrencyDollar, label: 'Цены и экономика', path: '/pricing' },
+  { icon: IconMessageChatbot, label: 'Чат с ИИ', path: '/chat' },
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <nav style={{ padding: '1rem' }}>
-      {menuItems.map((item) => (
-        <NavLink
-          key={item.path}
-          href={item.path}
-          label={item.label}
-          leftSection={<item.icon size={18} />}
-          active={location.pathname === item.path}
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(item.path);
-          }}
-          style={{ marginBottom: '4px' }}
-        />
-      ))}
-    </nav>
+    <AppShell.Navbar p="xs" w={{ base: isOpen ? 280 : 60 }}>
+      <ScrollArea>
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <NavLink
+              key={item.path}
+              href={item.path}
+              label={isOpen ? item.label : null}
+              leftSection={<item.icon size={20} stroke={1.5} />}
+              active={isActive}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(item.path);
+              }}
+              variant={isActive ? 'light' : 'subtle'}
+              py="sm"
+            />
+          );
+        })}
+      </ScrollArea>
+    </AppShell.Navbar>
   );
 };
-
-export default Sidebar;

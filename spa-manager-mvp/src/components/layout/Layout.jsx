@@ -1,38 +1,27 @@
-import { Box, AppShell } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import { useState } from 'react';
+import { AppShell } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
+import { Header } from './Header';
+import { Sidebar } from './Sidebar';
 
 export const Layout = () => {
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <AppShell
-      header={{ height: 80 }}
-      navbar={{
-        width: 260,
+      header={{ height: 60 }}
+      navbar={{ 
+        width: sidebarOpen ? 280 : 60, 
         breakpoint: 'sm',
-        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+        collapsed: { mobile: !sidebarOpen }
       }}
       padding="md"
     >
-      <AppShell.Header>
-        <Header />
-      </AppShell.Header>
-      
-      <AppShell.Navbar p="xs">
-        <Sidebar />
-      </AppShell.Navbar>
-      
-      <AppShell.Main>
-        <Box style={{ minHeight: 'calc(100vh - 100px)' }}>
-          <Outlet />
-        </Box>
+      <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar isOpen={sidebarOpen} />
+      <AppShell.Main bg="gray.0">
+        <Outlet />
       </AppShell.Main>
     </AppShell>
   );
 };
-
-export default Layout;

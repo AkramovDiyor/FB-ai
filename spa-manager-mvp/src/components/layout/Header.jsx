@@ -1,38 +1,38 @@
-import { Group, Select, Title, Box } from '@mantine/core';
-import { IconBuildingWarehouse } from '@tabler/icons-react';
-import { useAppContext } from '../../contexts/AppContext';
+import { useState, useEffect } from 'react';
+import { useObjectSwitch } from '../hooks/useObjectSwitch';
+import { useObjects } from '../hooks/useObjects';
+import { AppShell, Group, Text, Select, ActionIcon } from '@mantine/core';
+import { IconWarehouse, IconMenu2 } from '@tabler/icons-react';
 
-export const Header = () => {
-  const { selectedObject, setObject, locations } = useAppContext();
-
-  // Формируем данные для селекта
-  const locationData = locations.map((loc) => ({
-    value: loc.id,
-    label: `${loc.id} — ${loc.name}`,
-  }));
+export const Header = ({ onMenuToggle }) => {
+  const { selectedObject, setSelectedObject } = useObjectSwitch();
+  const { objects, isLoading } = useObjects();
 
   return (
-    <Box px="md" py="sm" bg="white" style={{ borderBottom: '1px solid #e9ecef' }}>
-      <Group justify="space-between" align="center">
-        <Group gap="sm">
-          <IconBuildingWarehouse size={28} stroke={1.5} />
-          <Title order={3}>SPA Manager</Title>
+    <AppShell.Header h={60} px="md">
+      <Group h="100%" justify="space-between">
+        <Group>
+          <ActionIcon variant="subtle" onClick={onMenuToggle}>
+            <IconMenu2 size={24} />
+          </ActionIcon>
+          <Group gap="xs">
+            <IconWarehouse size={28} color="#3b82f6" />
+            <Text fw={700} fz="lg">SPA Manager</Text>
+          </Group>
         </Group>
         
-        {locations.length > 0 && (
+        <Group gap="xs">
+          <Text size="sm" c="dimmed">Объект:</Text>
           <Select
-            label="Объект"
-            placeholder="Выберите объект"
-            data={locationData}
             value={selectedObject}
-            onChange={setObject}
+            onChange={setSelectedObject}
+            data={objects.map(o => ({ value: o.id, label: o.name }))}
+            loading={isLoading}
             w={250}
-            allowDeselect={false}
+            size="sm"
           />
-        )}
+        </Group>
       </Group>
-    </Box>
+    </AppShell.Header>
   );
 };
-
-export default Header;

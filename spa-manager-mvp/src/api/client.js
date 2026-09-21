@@ -22,34 +22,21 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Интерцептор ответа - централизованная обработка ошибок
+// Интерцептор ответа - обработка ошибок
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
       // Сервер вернул ошибку
       console.error('API Error:', error.response.status, error.response.data);
-      
-      // Специфичные обработки по кодам
-      switch (error.response.status) {
-        case 404:
-          throw new Error('Ресурс не найден');
-        case 500:
-          throw new Error('Ошибка сервера. Попробуйте позже.');
-        case 400:
-          throw new Error(error.response.data?.detail || 'Некорректный запрос');
-        default:
-          throw new Error(error.response.data?.detail || 'Произошла ошибка при запросе');
-      }
     } else if (error.request) {
-      // Запрос ушел, но ответа нет (сеть)
-      console.error('Network Error:', error.request);
-      throw new Error('Ошибка сети. Проверьте подключение к интернету.');
+      // Запрос был отправлен, но нет ответа
+      console.error('Network Error:', error.message);
     } else {
-      // Ошибка до отправки запроса
-      console.error('Request Error:', error.message);
-      throw new Error(error.message || 'Произошла неизвестная ошибка');
+      // Другая ошибка
+      console.error('Error:', error.message);
     }
+    return Promise.reject(error);
   }
 );
 

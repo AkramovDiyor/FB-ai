@@ -1,35 +1,34 @@
-// Эндпоинты API
-export const endpoints = {
-  // Мета данные
-  meta: '/api/meta',
-  health: '/health',
-  
-  // Дашборд
-  dashboard: '/api/dashboard',
-  
-  // Склад и товары
-  stock: '/api/stock',
-  products: (sku) => `/api/products/${sku}`,
-  batches: '/api/batches',
-  movements: '/api/movements',
-  
-  // Предупреждения
-  alerts: '/api/alerts',
-  
-  // Прогнозы и закупки
-  forecast: '/api/forecast',
-  reorderList: '/api/reorder-list',
-  purchasePlan: '/api/purchase-plan',
-  budget: '/api/budget',
-  
-  // Цены и экономика
-  priceDynamics: '/api/price-dynamics',
-  serviceCost: (serviceId) => `/api/service-cost/${serviceId}`,
-  serviceCostSimulate: '/api/service-cost/simulate',
-  
-  // Чат
-  chat: '/api/chat',
-  chatExamples: '/api/chat/examples',
-};
+// Meta endpoints
+export const META = '/api/meta';
 
-export default endpoints;
+// Dashboard
+export const DASHBOARD = '/api/dashboard';
+
+// Stock & Products
+export const STOCK = '/api/stock';
+export const PRODUCT = (sku) => `/api/products/${sku}`;
+export const BATCHES = '/api/batches';
+export const MOVEMENTS = '/api/movements';
+
+// Alerts
+export const ALERTS = '/api/alerts';
+
+// Forecast
+export const FORECAST = '/api/forecast';
+
+// Reorder list
+export const REORDER_LIST = '/api/reorder-list';
+
+// Planning & Budget
+export const PURCHASE_PLAN = '/api/purchase-plan';
+export const BUDGET = '/api/budget';
+
+// Pricing & Economics
+export const PRICE_DYNAMICS = '/api/price-dynamics';
+export const SERVICE_COST = (serviceId) => `/api/service-cost/${serviceId}`;
+export const SERVICE_COST_SIMULATE = '/api/service-cost/simulate';
+
+// Chat
+export const CHAT = '/api/chat';
+export const CHAT_EXAMPLES = '/api/chat/examples';
+export const CHAT_HISTORY = '/api/chat';
